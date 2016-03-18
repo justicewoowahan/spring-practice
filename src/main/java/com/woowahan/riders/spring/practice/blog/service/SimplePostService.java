@@ -1,7 +1,6 @@
 package com.woowahan.riders.spring.practice.blog.service;
 
 import com.woowahan.riders.spring.practice.blog.domain.Post;
-import com.woowahan.riders.spring.practice.blog.domain.QPost;
 import com.woowahan.riders.spring.practice.blog.domain.Site;
 import com.woowahan.riders.spring.practice.blog.domain.Writer;
 import com.woowahan.riders.spring.practice.blog.repository.PostRepository;
@@ -27,7 +26,8 @@ public class SimplePostService implements PostPublishService, PostSubscriptionSe
 
     @Override
     public Optional<Post> readOne(Long id) {
-        QPost post = QPost.post;
-        return Optional.of(postRepository.findOne(post.id.eq(id)));
+//        QPost post = QPost.post;
+//        return Optional.of(postRepository.findOne(post.id.eq(id)));
+        return Optional.empty();
     }
 }
