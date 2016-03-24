@@ -1,32 +1,37 @@
-package com.woowahan.riders.spring.practice.blog.domain;
+package com.woowahan.riders.spring.practice.domain;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by leejaeil on 2016. 3. 14..
+ * Created by justicehoop on 2016. 3. 24..
  */
 @Entity
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(columnDefinition = "TEXT")
     private String content;
-
+    @ManyToOne
+    private Writer writer;
     @ManyToOne
     private Post post;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDateTime;
 
-    public static Comment of(Post post, String content) {
+
+    private Comment() {}
+
+
+    public static Comment of(String content, Writer writer, Post post){
         Comment comment = new Comment();
-        comment.post = post;
         comment.content = content;
+        comment.writer = writer;
+        comment.post = post;
         comment.createdDateTime = new Date();
         post.appendComment(comment);
+        writer.appendComment(comment);
+
         return comment;
     }
 
@@ -38,11 +43,15 @@ public class Comment {
         return content;
     }
 
-    public Post getPost() {
-        return post;
-    }
-
     public Date getCreatedDateTime() {
         return createdDateTime;
+    }
+
+    public Writer getWriter() {
+        return writer;
+    }
+
+    public Post getPost() {
+        return post;
     }
 }
